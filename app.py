@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request
 from visualize import PushDownAutomata as pda
+from html2text import html2text
+import ast
 
 app = Flask("PDA Visualizer")
 
@@ -7,41 +9,72 @@ app = Flask("PDA Visualizer")
 @app.route("/", methods=["POST", "GET"])
 def home():
     if request.method == "POST":
-        # This is the code for debugging purposes
-        name = request.form.get("name")
-        print(name) if name else print("No name provided")
+        # get the states in the automata
+        states = request.form.get("input_states")
+        states = states.replace(" ", "")
+        states = set(states.split(",")) if states else None
 
-        states = {"q0", "q1", "qf"}
-        input_symbols = {"a", "b"}
-        stack_symbols = {"Z", "A", "B"}
-        transitions = {
-            "q0": {
-                "": {
-                    "Z": {("qf", "")},
-                    "B": {("q1", ("B"))},
-                },
-                "a": {
-                    "Z": {("q0", ("A", "Z"))},
-                    "B": {("q0", ("A", "B"))},
-                },
-                "b": {
-                    "A": {
-                        ("q0", ("B", "A")),
-                    }
-                },
-            },
-            "q1": {
-                "": {"Z": {("qf", "")}},
-                "a": {
-                    "A": {("q1", "")},
-                    "B": {("q1", "")},
-                },
-            },
-        }
-        initial_state = "q0"
-        initial_stack_symbol = "Z"
-        final_states = {"qf"}
-        acceptance_mode = "empty_stack"
+        # get the input symbols in the automata
+        input_symbols = request.form.get("input_alphabets")
+        input_symbols = input_symbols.replace(" ", "")
+        input_symbols = set(input_symbols.split(",")) if input_symbols else None
+
+        # get the stack symbols in the automata
+        stack_symbols = request.form.get("stack_symbols")
+        stack_symbols = stack_symbols.replace(" ", "")
+        stack_symbols = set(stack_symbols.split(",")) if stack_symbols else None
+
+        # get the transitions of the automata in json format
+        transitions_str = request.form.get("transitions")
+        transitions_str = html2text(transitions_str)
+        try:
+            transitions = ast.literal_eval(transitions_str)
+
+        except (ValueError, SyntaxError) as e:
+            print(f"Error parsing input: {e}")
+
+        initial_state = request.form.get("initial_state")
+        initial_state = initial_state.replace(" ", "") if initial_state else None
+
+        initial_stack_symbol = request.form.get("initial_stack_symbol")
+        initial_stack_symbol = (
+            initial_stack_symbol.replace(" ", "") if initial_stack_symbol else None
+        )
+
+        final_states = request.form.get("final_states")
+        final_states = final_states.replace(" ", "")
+        final_states = set(final_states.split(",")) if final_states else None
+
+        acceptance_mode = request.form.get("acceptance_mode")
+
+        states = states
+        input_symbols = input_symbols
+        stack_symbols = stack_symbols
+        transitions = transitions
+        initial_state = initial_state
+        initial_stack_symbol = initial_stack_symbol
+        final_states = final_states
+        acceptance_mode = acceptance_mode
+
+        # # Debugging
+        # print(
+        #     "\n STATES \n",
+        #     states,
+        #     "\n INPUT SYMBOLS \n",
+        #     input_symbols,
+        #     "\n STACK SYMBOLS \n",
+        #     stack_symbols,
+        #     "\n TRANSITIONS \n",
+        #     transitions,
+        #     "\n INITIAL STATE \n",
+        #     initial_state,
+        #     "\n INITIAL STACK SYMBOL \n",
+        #     initial_stack_symbol,
+        #     "\n FINAL STATES \n",
+        #     final_states,
+        #     "\n ACCEPTANCE MODE \n",
+        #     acceptance_mode,
+        # )
 
         npda = pda.create_npda(
             states,
@@ -59,6 +92,8 @@ def home():
 
         else:
             print("NPDA not validated")
+
+        return render_template("index.html", context="Success")
 
     return render_template("index.html")
 

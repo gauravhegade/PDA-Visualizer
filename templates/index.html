@@ -6,10 +6,146 @@
         <title>PDA Visualizer</title>
     </head>
     <body>
-        This is the app homepage
         <form method="post">
-            <input type="text" name="name" id="name" />
-            <input type="submit" value="Submit name" />
+            <label for="input_states"
+                >Enter the number of states in the automaton</label
+            >
+            <br />
+            <input
+                type="text"
+                name="input_states"
+                id="input_states"
+                required
+                placeholder="Enter the states in your pda (comma separated)"
+            />
+
+            <br />
+            <br />
+
+            <label for="input_alphabets">Enter input alphabets:</label>
+            <br />
+            <input
+                type="text"
+                name="input_alphabets"
+                id="input_alphabets"
+                required
+                placeholder="Enter input alphabets (comma separated)"
+            />
+
+            <br />
+            <br />
+
+            <label for="stack_symbols">Enter stack symbols:</label>
+            <br />
+            <input
+                type="text"
+                name="stack_symbols"
+                id="stack_symbols"
+                required
+                placeholder="Enter valid stack symbols (comma separated)"
+            />
+
+            <br />
+            <br />
+
+            <label for="transitions">Enter transitions:</label>
+            <br />
+            <textarea
+                name="transitions"
+                id="transitions"
+                required
+                style="width: 400px; height: 320px"
+                placeholder="enter transitions in the following format:
+{
+    'state':{
+        'input_symbol':{
+            'symbol on top of stack':{
+                (
+                    'state which it transitions to',
+                    'empty quotations for epsilon'
+                    or 
+                    (
+                        'one or more comma separated
+                        stack contents on trantision'
+                    )
+                )
+            }
+        }
+    }
+}"
+            ></textarea>
+
+            <br />
+            <br />
+
+            <label for="initial_state">Enter start state:</label>
+            <br />
+            <input
+                type="text"
+                name="initial_state"
+                id="initial_state"
+                required
+                placeholder="Enter a start state, should be one of the input states"
+            />
+
+            <br />
+            <br />
+
+            <label for="initial_stack_symbol"
+                >Enter initial stack symbol:</label
+            >
+            <br />
+            <input
+                type="text"
+                name="initial_stack_symbol"
+                id="initial_stack_symbol"
+                required
+                placeholder="Enter initial stack symbol, should be one of the stack symbols"
+            />
+
+            <br />
+            <br />
+
+            <label for="final_states">Enter finite set of final states:</label>
+            <br />
+            <input
+                type="text"
+                name="final_states"
+                id="final_states"
+                required
+                placeholder="Enter final states (comma separated)"
+            />
+
+            <br />
+            <br />
+
+            <p>Choose your acceptance mode:</p>
+            <input
+                type="radio"
+                id="empty_stack"
+                name="acceptance_mode"
+                value="empty_stack"
+            />
+            <label for="empty_stack">Acceptance by Empty Stack</label>
+
+            <br />
+
+            <input
+                type="radio"
+                id="final_state"
+                name="acceptance_mode"
+                value="final_state"
+            />
+            <label for="empty_stack">Acceptance by Final State</label>
+
+            <br />
+            <br />
+
+            <input type="submit" value="Submit" />
         </form>
+
+        <br />
+
+        {% if context %} <h1><b>{{context}}</b><h1> {% endif %}
     </body>
 </html>
