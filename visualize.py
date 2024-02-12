@@ -34,18 +34,14 @@ class PushDownAutomata:
             npda.show_diagram(path="static/npda/diagram.png")
             return True
 
-    input_strings = "input input string here from html webpage in the form of a list"
+    def simulate_npda(input_string, npda):
+        is_accepted = npda.accepts_input(input_string)
 
-    def simulate_npda(input_strings, npda):
-        for test_case in input_strings:
-            is_accepted = npda.accepts_input(test_case)
-
-        plot_path = f"static/npda/tests/test-{test_case}.png"
+        plot_path = f"static/npda/tests/test-{input_string}.png"
 
         if is_accepted:
-            npda.show_diagram(input_str=test_case, path=plot_path, with_stack=True)
-            return f"Input: {test_case} is accepted!"
+            npda.show_diagram(input_str=input_string, path=plot_path, with_stack=True)
+            return f"Input: {input_string} is accepted!"
 
         else:
-            npda.show_diagram(input_str=test_case, path=plot_path, with_stack=True)
-            return f"Input: {test_case} is not accepted!"
+            return f"Input: {input_string} is not accepted!"

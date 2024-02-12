@@ -47,6 +47,12 @@ def home():
 
         acceptance_mode = request.form.get("acceptance_mode")
 
+        # # Get input strings to test from user
+        test_strings = request.form.get("test_strings")
+        test_strings = test_strings.replace(" ", "")
+        test_strings = list(test_strings.split(",")) if test_strings else None
+        print(test_strings)
+
         states = states
         input_symbols = input_symbols
         stack_symbols = stack_symbols
@@ -93,7 +99,25 @@ def home():
         else:
             print("NPDA not validated")
 
-        return render_template("index.html", context="Success")
+        res = []
+
+        for test_string in test_strings:
+            res.append(pda.simulate_npda(test_string, npda))
+
+        print(res)
+
+        # TODO: FIND A BETTER WAY TO PRINT THE RESULT
+        # ONE WAY: ATTACH THE TEST CASE RESULT TO THE TEST CASE ITSELF AND USE IT IN PRINTING THE DIAGRAMS
+        # ANOTHER WAY: NEED TO BE THOUGHT OF
+
+        context = {
+            "npda": "static/npda/diagram.png",
+            "result_images": "static/npda/tests/",
+            "result": res,
+            "test_strings": test_strings,
+        }
+
+        return render_template("index.html", context=context)
 
     return render_template("index.html")
 

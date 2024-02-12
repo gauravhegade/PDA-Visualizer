@@ -5,11 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>PDA Visualizer</title>
     </head>
+
     <body>
         <form method="post">
-            <label for="input_states"
-                >Enter the number of states in the automaton</label
-            >
+            <label for="input_states">Enter the states of the automaton</label>
             <br />
             <input
                 type="text"
@@ -56,23 +55,23 @@
                 required
                 style="width: 400px; height: 320px"
                 placeholder="enter transitions in the following format:
-{
-    'state':{
-        'input_symbol':{
-            'symbol on top of stack':{
-                (
-                    'state which it transitions to',
-                    'empty quotations for epsilon'
-                    or 
-                    (
-                        'one or more comma separated
-                        stack contents on trantision'
-                    )
-                )
-            }
-        }
-    }
-}"
+            {
+                'state':{
+                    'input_symbol':{
+                        'symbol on top of stack':{
+                            (
+                                'state which it transitions to',
+                                'empty quotations for epsilon'
+                                or 
+                                (
+                                    'one or more comma separated
+                                    stack contents on trantision'
+                                )
+                            )
+                        }
+                    }
+                }
+            }"
             ></textarea>
 
             <br />
@@ -141,11 +140,37 @@
             <br />
             <br />
 
+            <label for="test_strings">Test Input Strings</label>
+            <br />
+            <input
+                type="text"
+                placeholder="Enter states to check acceptance"
+                style="width: 500px"
+                id="test_strings"
+                name="test_strings"
+            />
+
+            <br />
+            <br />
+
             <input type="submit" value="Submit" />
         </form>
 
         <br />
 
-        {% if context %} <h1><b>{{context}}</b><h1> {% endif %}
+        {% if context %}
+        <h1>
+            <p>Resultant valid NPDA:</p>
+            <img src="{{context['npda']}}" alt="resulting NPDA image" />
+        </h1>
+
+        {% for r in context['result'] %}
+        <p>{{r}}</p>
+        {% endfor %} {% for t in context['test_strings'] %}
+        <p>{{t}}</p>
+
+        <img src="{{context['result_images']}}test-{{t}}.png" alt="" />
+
+        {% endfor %} {% endif %}
     </body>
 </html>
