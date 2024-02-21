@@ -1,1 +1,1 @@
-Pushdown automata Visualizer on an Interactrive website
+Pushdown automata Visualizer on an Interactive website
