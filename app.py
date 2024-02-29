@@ -99,12 +99,18 @@ def home():
         else:
             print("NPDA not validated")
 
+
         res = []
+        if test_strings is not None:
+            for test_string in test_strings:
+                res.append(pda.simulate_npda(test_string, npda))
+            
+            print(res)
 
-        for test_string in test_strings:
-            res.append(pda.simulate_npda(test_string, npda))
+        else:
+            pass
 
-        print(res)
+
 
         # TODO: FIND A BETTER WAY TO PRINT THE RESULT
         # ONE WAY: ATTACH THE TEST CASE RESULT TO THE TEST CASE ITSELF AND USE IT IN PRINTING THE DIAGRAMS

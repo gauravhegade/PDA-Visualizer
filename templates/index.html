@@ -1,60 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>PDA Visualizer</title>
-    </head>
 
-    <body>
-        <form method="post">
-            <label for="input_states">Enter the states of the automaton</label>
-            <br />
-            <input
-                type="text"
-                name="input_states"
-                id="input_states"
-                required
-                placeholder="Enter the states in your pda (comma separated)"
-            />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDA Visualizer</title>
+</head>
 
-            <br />
-            <br />
+<body>
+    <form method="post">
+        <label for="input_states">Enter the states of the automaton</label>
+        <br />
+        <input type="text" name="input_states" id="input_states" required
+            placeholder="Enter the states in your pda (comma separated)" />
 
-            <label for="input_alphabets">Enter input alphabets:</label>
-            <br />
-            <input
-                type="text"
-                name="input_alphabets"
-                id="input_alphabets"
-                required
-                placeholder="Enter input alphabets (comma separated)"
-            />
+        <br />
+        <br />
 
-            <br />
-            <br />
+        <label for="input_alphabets">Enter input alphabets:</label>
+        <br />
+        <input type="text" name="input_alphabets" id="input_alphabets" required
+            placeholder="Enter input alphabets (comma separated)" />
 
-            <label for="stack_symbols">Enter stack symbols:</label>
-            <br />
-            <input
-                type="text"
-                name="stack_symbols"
-                id="stack_symbols"
-                required
-                placeholder="Enter valid stack symbols (comma separated)"
-            />
+        <br />
+        <br />
 
-            <br />
-            <br />
+        <label for="stack_symbols">Enter stack symbols:</label>
+        <br />
+        <input type="text" name="stack_symbols" id="stack_symbols" required
+            placeholder="Enter valid stack symbols (comma separated)" />
 
-            <label for="transitions">Enter transitions:</label>
-            <br />
-            <textarea
-                name="transitions"
-                id="transitions"
-                required
-                style="width: 400px; height: 320px"
-                placeholder="enter transitions in the following format:
+        <br />
+        <br />
+
+        <label for="transitions">Enter transitions:</label>
+        <br />
+        <textarea name="transitions" id="transitions" required style="width: 400px; height: 320px" placeholder="enter transitions in the following format:
             {
                 'state':{
                     'input_symbol':{
@@ -71,106 +52,77 @@
                         }
                     }
                 }
-            }"
-            ></textarea>
+            }"></textarea>
 
-            <br />
-            <br />
+        <br />
+        <br />
 
-            <label for="initial_state">Enter start state:</label>
-            <br />
-            <input
-                type="text"
-                name="initial_state"
-                id="initial_state"
-                required
-                placeholder="Enter a start state, should be one of the input states"
-            />
+        <label for="initial_state">Enter start state:</label>
+        <br />
+        <input type="text" name="initial_state" id="initial_state" required
+            placeholder="Enter a start state, should be one of the input states" />
 
-            <br />
-            <br />
+        <br />
+        <br />
 
-            <label for="initial_stack_symbol"
-                >Enter initial stack symbol:</label
-            >
-            <br />
-            <input
-                type="text"
-                name="initial_stack_symbol"
-                id="initial_stack_symbol"
-                required
-                placeholder="Enter initial stack symbol, should be one of the stack symbols"
-            />
+        <label for="initial_stack_symbol">Enter initial stack symbol:</label>
+        <br />
+        <input type="text" name="initial_stack_symbol" id="initial_stack_symbol" required
+            placeholder="Enter initial stack symbol, should be one of the stack symbols" />
 
-            <br />
-            <br />
+        <br />
+        <br />
 
-            <label for="final_states">Enter finite set of final states:</label>
-            <br />
-            <input
-                type="text"
-                name="final_states"
-                id="final_states"
-                required
-                placeholder="Enter final states (comma separated)"
-            />
+        <label for="final_states">Enter finite set of final states:</label>
+        <br />
+        <input type="text" name="final_states" id="final_states" required
+            placeholder="Enter final states (comma separated)" />
 
-            <br />
-            <br />
+        <br />
+        <br />
 
-            <p>Choose your acceptance mode:</p>
-            <input
-                type="radio"
-                id="empty_stack"
-                name="acceptance_mode"
-                value="empty_stack"
-            />
-            <label for="empty_stack">Acceptance by Empty Stack</label>
-
-            <br />
-
-            <input
-                type="radio"
-                id="final_state"
-                name="acceptance_mode"
-                value="final_state"
-            />
-            <label for="empty_stack">Acceptance by Final State</label>
-
-            <br />
-            <br />
-
-            <label for="test_strings">Test Input Strings</label>
-            <br />
-            <input
-                type="text"
-                placeholder="Enter states to check acceptance"
-                style="width: 500px"
-                id="test_strings"
-                name="test_strings"
-            />
-
-            <br />
-            <br />
-
-            <input type="submit" value="Submit" />
-        </form>
+        <p>Choose your acceptance mode:</p>
+        <input type="radio" id="empty_stack" name="acceptance_mode" value="empty_stack" />
+        <label for="empty_stack">Acceptance by Empty Stack</label>
 
         <br />
 
-        {% if context %}
-        <h1>
-            <p>Resultant valid NPDA:</p>
-            <img src="{{context['npda']}}" alt="resulting NPDA image" />
-        </h1>
+        <input type="radio" id="final_state" name="acceptance_mode" value="final_state" />
+        <label for="final_state">Acceptance by Final State</label>
 
-        {% for r in context['result'] %}
-        <p>{{r}}</p>
-        {% endfor %} {% for t in context['test_strings'] %}
-        <p>{{t}}</p>
+        <br />
+        <br />
 
-        <img src="{{context['result_images']}}test-{{t}}.png" alt="" />
+        <label for="test_strings">Test Input Strings</label>
+        <br />
+        <input type="text" placeholder="Enter states to check acceptance" style="width: 500px" id="test_strings"
+            name="test_strings" />
 
-        {% endfor %} {% endif %}
-    </body>
+        <br />
+        <br />
+
+        <input type="submit" value="Submit" />
+    </form>
+
+    <br />
+
+    {% if context %}
+    <h1>
+        <p>Resultant valid NPDA:</p>
+        <img src="{{context['npda']}}" alt="resulting NPDA image" />
+    </h1>
+
+    {% for r in context['result'] %}
+    <p>{{r}}</p>
+    {% endfor %}
+
+    {% if context['test_strings'] %}
+    {% for t in context['test_strings'] %}
+    <p>{{t}}</p>
+
+    <img src="{{context['result_images']}}test-{{t}}.png" alt="" />
+
+    {% endfor %} {% endif %} {% endif %}
+</body>
+
 </html>
