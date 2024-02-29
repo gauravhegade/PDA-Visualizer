@@ -1,11 +1,11 @@
 from automata.pda.npda import NPDA
 from automata.base.exceptions import RejectionException
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+# import matplotlib.pyplot as plt
+# import matplotlib.image as mpimg
 
 
 class PushDownAutomata:
-    def create_npda(
+    def create_npda(self,
         input_states,
         input_alphabets,
         input_stack_alphabets,
@@ -27,14 +27,14 @@ class PushDownAutomata:
         )
         return npda
 
-    def validate_npda(npda):
+    def validate_npda(self, npda):
         if npda.validate():
             return False
         else:
             npda.show_diagram(path="static/npda/diagram.png")
             return True
 
-    def simulate_npda(input_string, npda):
+    def simulate_npda(self, input_string, npda):
         is_accepted = npda.accepts_input(input_string)
 
         plot_path = f"static/npda/tests/test-{input_string}.png"
@@ -44,4 +44,5 @@ class PushDownAutomata:
             return f"Input: {input_string} is accepted!"
 
         else:
+            print("PDA rejected because of the following reason: ")
             return f"Input: {input_string} is not accepted!"
