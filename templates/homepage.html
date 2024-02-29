@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../static/styles/style.css" />
     <style>
       body {
         margin: 0;
         padding: 0;
         font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-        background-image: url("toc.jpg");
+        background-image: url("../static/styles/toc.jpg");
       }
 
       .banner {
@@ -62,32 +62,32 @@
           <ul>
             <div class="inputbox">
               <input type="text" required="required" />
-              <span> Num_OF STATES</span>
+              <span>States of the Automata</span>
             </div>
             <div class="inputbox">
               <input type="text" required="required" />
-              <span> INPUT ALPHABETS</span>
+              <span>Input Alphabets</span>
             </div>
             <div class="inputbox">
               <input type="text" required="required" />
-              <span> STACK SYMBOLs</span>
+              <span>Stack Symbols</span>
             </div>
             <div class="inputbox">
               <input type="text" required="required" />
-              <span> START STATE</span>
+              <span>Start State</span>
             </div>
             <div class="inputbox">
               <input type="text" required="required" />
-              <span> INITIAL_STACK SYMBOL</span>
+              <span>Initial Stack Symbol</span>
             </div>
             <div class="inputbox">
               <input type="text" required="required" />
-              <span> FINAL STATES</span>
+              <span>Final State(s)</span>
             </div>
             <div class="inputbox inputbox-dropdown">
               <div class="dropdown">
                 <input type="text" id="myInput" readonly required />
-                <span id="remove">ACCEPTANCE MODE</span>
+                <span id="remove">Acceptance Mode</span>
                 <div id="myDropdown" class="dropdown-content">
                   <a href="#" onclick="changeInputValue('Final State')"
                     >Final State</a
@@ -104,31 +104,56 @@
                 onclick="remove()"
                 class="pda-code"
                 name="pdaCode"
-                rows="10"
-                cols="50"
                 required
                 style="
                   background: #1d2b3a;
                   color: aliceblue;
                   border: 1px solid white;
+                  width: 400px;
+                  height: 320px;
                 "
+                placeholder="enter transitions in the following format:
+                {
+                    'state':{
+                        'input_symbol':{
+                            'symbol on top of stack':{
+                                (
+                                    'state which it transitions to',
+                                    'empty quotations for epsilon'
+                                    or 
+                                    (
+                                        'one or more comma separated
+                                        stack contents on trantision'
+                                    )
+                                )
+                            }
+                        }
+                    }
+                }"
               ></textarea>
             </div>
           </ul>
         </div>
 
         <div>
-          <input type="submit" class='submit_button' style="margin-top: 200px" value="CREATE" />
+          <input
+            type="submit"
+            class="submit_button"
+            style="margin-top: 200px"
+            value="CREATE"
+          />
         </div>
       </div>
     </form>
     <script>
       function changeInputValue(value) {
+        console.log("changing input value of dropdown to " + value);
         document.getElementById("myInput").value = value;
         document.getElementById("remove").style.display = "none";
       }
 
       function remove(value) {
+        console.log("removing value from textarea");
         document.getElementById("remove").style.display = "none";
       }
     </script>
