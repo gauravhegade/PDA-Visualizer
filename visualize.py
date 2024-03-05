@@ -41,8 +41,7 @@ class PushDownAutomata:
 
         if is_accepted:
             npda.show_diagram(input_str=input_string, path=plot_path, with_stack=True)
-            return f"Input: {input_string} is accepted!"
-
+            return True, f"{input_string} is accepted!"
         else:
             print("PDA rejected because of the following reason: ")
-            return f"Input: {input_string} is not accepted!"
+            return False, f"{input_string} is not accepted!"

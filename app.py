@@ -99,18 +99,14 @@ def home():
         else:
             print("NPDA not validated")
 
-
         res = []
         if test_strings is not None:
             for test_string in test_strings:
                 res.append(pda.simulate_npda(test_string, npda))
             
             print(res)
-
         else:
             pass
-
-
 
         # TODO: FIND A BETTER WAY TO PRINT THE RESULT
         # ONE WAY: ATTACH THE TEST CASE RESULT TO THE TEST CASE ITSELF AND USE IT IN PRINTING THE DIAGRAMS
@@ -118,12 +114,11 @@ def home():
 
         context = {
             "npda": "static/npda/diagram.png",
-            "result_images": "static/npda/tests/",
             "result": res,
             "test_strings": test_strings,
         }
 
-        return render_template("index.html", context=context)
+        return render_template("index.html", context=context, zip=zip)
 
     return render_template("index.html")
 

@@ -29,7 +29,8 @@
 states={"q0", "q1", "q2"},
 input_symbols={"a", "b"},
 stack_symbols={"A", "B", "#"},
-transitions={
+transitions=
+{
     "q0": {
         "": {
             "#": {("q2", "#")},
