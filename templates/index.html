@@ -19,8 +19,13 @@
 
   <body>
     <div class="container">
-      <h1 class="display-1 text-center mt-3">PDA Visualizer</h1>
-
+      {% if context %}
+        <h1 class="display-1 text-center mt-3">
+          {{ context['mode'] }} Visualizer
+        </h1>
+      {% else %}
+        <h1 class="display-1 text-center mt-3">{{ mode }} Visualizer</h1>
+      {% endif %}
       <form method="post">
         <div class="form-floating mb-3">
           <input
@@ -171,26 +176,34 @@
       <hr />
 
       {% if context %}
-        <p class="h3">Resultant valid NPDA:</p>
-        <img
-          src="{{context['npda']}}"
-          alt="resulting NPDA image"
-          class="img-fluid"
-        />
+      <p class="h3">Resultant valid {{ context['mode'] }}:</p>
+      {% if request.path == "/npda" %}
+      <img
+        src="{{context['npda']}}"
+        alt="resulting NPDA image"
+        class="img-fluid"
+      />
 
-        <hr />
-
-        <p class="h5 mb-3">From the given input strings:</p>
-        {% for r in context['result'] %}
-          <p class="lead"><b>{{r[2]}}</b></p>
-          {% if r[0] %}
-            <img src="/static/npda/tests/test-{{r[1]}}.png" />
-          {% endif %}
-          <hr />
-        {% endfor %}
-
-        
+      {% else %}
+      <img
+        src="{{context['dpda']}}"
+        alt="resulting NPDA image"
+        class="img-fluid"
+      />
       {% endif %}
+
+      <hr />
+
+      <p class="h5 mb-3">From the given input strings:</p>
+      {% for r in context['result'] %}
+      <p class="lead"><b>{{r[2]}}</b></p>
+      {% if r[0] %} {% if request.path == "/npda" %}
+      <img src="/static/npda/tests/test-{{r[1]}}.png" />
+      {% else %}
+      <img src="/static/dpda/tests/test-{{r[1]}}.png" />
+      {% endif %} {% endif %}
+      <hr />
+      {% endfor %} {% endif %}
     </div>
 
     <!-- bootstrap JS imports -->
