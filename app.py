@@ -51,7 +51,6 @@ def home():
         test_strings = request.form.get("test_strings")
         test_strings = test_strings.replace(" ", "")
         test_strings = list(test_strings.split(",")) if test_strings else None
-        print(test_strings)
 
         states = states
         input_symbols = input_symbols
@@ -103,8 +102,7 @@ def home():
         if test_strings is not None:
             for test_string in test_strings:
                 res.append(pda.simulate_npda(test_string, npda))
-            
-            print(res)
+
         else:
             pass
 
@@ -118,7 +116,7 @@ def home():
             "test_strings": test_strings,
         }
 
-        return render_template("index.html", context=context, zip=zip)
+        return render_template("index.html", context=context)
 
     return render_template("index.html")
 

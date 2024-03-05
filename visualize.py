@@ -35,13 +35,21 @@ class PushDownAutomata:
             return True
 
     def simulate_npda(input_string, npda):
+        if input_string == "E":
+            input_string = ""
+
         is_accepted = npda.accepts_input(input_string)
 
+        if input_string == "":
+            input_string = "E"
         plot_path = f"static/npda/tests/test-{input_string}.png"
 
         if is_accepted:
+            if input_string == "E":
+                input_string = ""
             npda.show_diagram(input_str=input_string, path=plot_path, with_stack=True)
-            return True, f"{input_string} is accepted!"
+            if input_string == "":
+                input_string = "E"
+            return True, input_string, f"{input_string} is accepted!"
         else:
-            print("PDA rejected because of the following reason: ")
-            return False, f"{input_string} is not accepted!"
+            return False, input_string, f"{input_string} is not accepted!"

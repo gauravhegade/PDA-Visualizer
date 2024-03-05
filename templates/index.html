@@ -19,7 +19,7 @@
 
   <body>
     <div class="container">
-      <h1 class="display-3 text-center mt-3">PDA Visualizer</h1>
+      <h1 class="display-1 text-center mt-3">PDA Visualizer</h1>
 
       <form method="post">
         <div class="form-floating mb-3">
@@ -30,7 +30,7 @@
             name="input_states"
             placeholder="Enter values comma separated"
           />
-          <label for="input_states">Input States</label>
+          <label for="input_states">States</label>
         </div>
 
         <div class="form-floating mb-3">
@@ -171,25 +171,26 @@
       <hr />
 
       {% if context %}
-      <p class="h3">Resultant valid NPDA:</p>
-      <img
-        src="{{context['npda']}}"
-        alt="resulting NPDA image"
-        class="img-fluid"
-      />
+        <p class="h3">Resultant valid NPDA:</p>
+        <img
+          src="{{context['npda']}}"
+          alt="resulting NPDA image"
+          class="img-fluid"
+        />
 
-      <hr />
+        <hr />
 
-      {% for r in context['result'] %}
-      <p class="lead"><b>{{r}}</b></p>
-      {% endfor %} {% if context['test_strings'] %} {% for t, is_accepted in
-      zip(context['test_strings'], context['result']) %}
-      <hr />
+        <p class="h5 mb-3">From the given input strings:</p>
+        {% for r in context['result'] %}
+          <p class="lead"><b>{{r[2]}}</b></p>
+          {% if r[0] %}
+            <img src="/static/npda/tests/test-{{r[1]}}.png" />
+          {% endif %}
+          <hr />
+        {% endfor %}
 
-      {% if is_accepted %}
-      <img src="/static/npda/tests/test-{{t}}.png" alt="" />
-
-      {% endif %} {% endfor %} {% endif %} {% endif %}
+        
+      {% endif %}
     </div>
 
     <!-- bootstrap JS imports -->
