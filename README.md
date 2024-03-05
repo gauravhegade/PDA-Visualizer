@@ -1,4 +1,4 @@
-# Pushdown automata visualizer on an Interactive website
+# Pushdown automata visualizer on an interactive website
 
 <b>
 Note: This project was built as a part of Experiential Learning for the course Theory of Computation, and will be no longer developed or maintained once the course/semester ends.
