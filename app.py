@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from visualize import determine_pushdown_automaton as determine_pushdown_automaton
 from visualize import (
     nondeterministic_pushdown_automaton as nondeterministic_pushdown_automaton,
@@ -7,6 +7,11 @@ from html2text import html2text
 import ast
 
 app = Flask("PDA Visualizer")
+
+
+@app.route("/")
+def index():
+    return redirect("/npda" or "/dpda")
 
 
 @app.route("/npda", methods=["POST", "GET"])
